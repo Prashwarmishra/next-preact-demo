@@ -8,6 +8,8 @@
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@noriginmedia/norigin-spatial-navigation": "^2.2.1",
+    "classnames": "^2.5.1",
     "next": "12.3.4",
     "next-plugin-preact": "3.0.7",
     "preact": "10.10.6",
