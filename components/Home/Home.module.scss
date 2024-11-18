@@ -1,7 +1,5 @@
 .root {
-  padding: 20px;
-  .products {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  height: 100vh;
+  width: 100vw;
+  overflow: scroll;
 }

@@ -1,0 +1,14 @@
+.title {
+  padding: 20px 0 0px 20px;
+}
+
+.root {
+  display: flex;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  overflow: scroll;
+}
+
+.root:last-child {
+  margin-right: 20px;
+}

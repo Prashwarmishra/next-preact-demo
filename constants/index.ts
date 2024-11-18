@@ -6,4 +6,5 @@ export const HOMEPAGE_CATEGORIES = [
   'sports-accessories',
   'laptops',
   'mens-watches',
+  'tablets',
 ];

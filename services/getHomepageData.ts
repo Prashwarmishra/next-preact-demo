@@ -11,7 +11,6 @@ const getHomepageData = async () => {
 
   const response = await Promise.all(requests)
     .then((results) => {
-      console.log(results);
       const output: Layout[] = results.map((result, index) => ({
         title: `Trending in ${HOMEPAGE_CATEGORIES[index]}`,
         products: serializeProduct(result.products),
