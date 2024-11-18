@@ -16,7 +16,7 @@ type Props = {
 const ProductCard = ({ data, onFocusCallback }: Props) => {
   const handleProductCardClick = () => {
     console.log('productCardClick');
-    router.push(`/${data.productId}`);
+    router.push(`/product/${data.productId}`);
   };
 
   const { focused, focusKey, ref } = useFocusable({

@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { noop } from '../utils';
 
-const useNavigation = () => {
+const useNavigation = (isPopup = false, onBackPress = noop) => {
   const router = useRouter();
 
   const navigateTo = (path: string) => {
@@ -13,7 +14,10 @@ const useNavigation = () => {
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') navigateBack();
+    if (e.key === 'Escape') {
+      onBackPress();
+      if (!isPopup) navigateBack();
+    }
   };
 
   useEffect(() => {

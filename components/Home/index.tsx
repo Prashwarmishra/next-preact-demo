@@ -2,12 +2,15 @@ import {
   FocusableComponentLayout,
   FocusContext,
   init,
+  setFocus,
   useFocusable,
 } from '@noriginmedia/norigin-spatial-navigation';
 import s from './Home.module.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../../types/Layout';
 import Row from '../Row';
+import LoginNudge from '../LoginNudge';
+import { WAS_LOGIN_NUDGE_SHOWN } from '../../constants/sessionStorage';
 
 type Props = {
   data: Layout[];
@@ -15,16 +18,30 @@ type Props = {
 
 const Home = ({ data }: Props) => {
   const { ref, focusKey, focusSelf } = useFocusable();
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleRowFocus = (layout: FocusableComponentLayout) => {
     ref.current.scrollTop = layout.y - 200;
     ref.current.style.scrollBehavior = 'smooth';
   };
 
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const runLoginNudgeFlow = () => {
+    const wasLoginNudgeShown = sessionStorage.getItem(WAS_LOGIN_NUDGE_SHOWN);
+    if (wasLoginNudgeShown !== 'true') {
+      sessionStorage.setItem(WAS_LOGIN_NUDGE_SHOWN, 'true');
+      setTimeout(() => setShowPopup(true), 500);
+    }
+  };
+
   useEffect(() => {
     if (data?.length) {
       init();
-      focusSelf();
+      setFocus(focusKey);
+      runLoginNudgeFlow();
     }
   }, [data]);
 
@@ -34,6 +51,8 @@ const Home = ({ data }: Props) => {
         {data?.map((rowData) => (
           <Row data={rowData} onFocusCallback={handleRowFocus} />
         ))}
+
+        {showPopup && <LoginNudge onClose={handleClosePopup} />}
       </div>
     </FocusContext.Provider>
   );

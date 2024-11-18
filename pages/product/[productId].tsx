@@ -1,6 +1,6 @@
 import { InferGetServerSidePropsType } from 'next';
-import ProductDescriptionComponent from '../components/ProductDescription';
-import getProductDescription from '../services/getProductDescription';
+import ProductDescriptionComponent from '../../components/ProductDescription';
+import getProductDescription from '../../services/getProductDescription';
 
 export const getServerSideProps = async (context: any) => {
   const { productId } = context.params;
