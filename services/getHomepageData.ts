@@ -1,5 +1,5 @@
 import { BASE_URL, HOMEPAGE_CATEGORIES } from '../constants';
-import { serializeProduct } from './getProducts';
+import { serializeProducts } from './getProducts';
 import Layout from '../types/Layout';
 
 const getHomepageData = async () => {
@@ -13,7 +13,7 @@ const getHomepageData = async () => {
     .then((results) => {
       const output: Layout[] = results.map((result, index) => ({
         title: `Trending in ${HOMEPAGE_CATEGORIES[index]}`,
-        products: serializeProduct(result.products),
+        products: serializeProducts(result.products),
       }));
       return output;
     })
