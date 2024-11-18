@@ -14,16 +14,17 @@ type Props = {
 };
 
 const ProductCard = ({ data, onFocusCallback }: Props) => {
-  const { focused, focusKey, ref } = useFocusable({
-    onFocus: onFocusCallback,
-  });
-
-  const router = useRouter();
-
   const handleProductCardClick = () => {
     console.log('productCardClick');
     router.push(`/${data.productId}`);
   };
+
+  const { focused, focusKey, ref } = useFocusable({
+    onFocus: onFocusCallback,
+    onEnterPress: handleProductCardClick,
+  });
+
+  const router = useRouter();
 
   return (
     <FocusContext.Provider value={focusKey}>
