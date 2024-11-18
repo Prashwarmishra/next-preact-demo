@@ -3,13 +3,13 @@ import {
   init,
   useFocusable,
 } from '@noriginmedia/norigin-spatial-navigation';
-import Product from '../../types/Product';
 import ProductCard from '../../ui/molecules/ProductCard';
 import s from './Home.module.scss';
 import { useEffect } from 'react';
+import Layout from '../../types/Layout';
 
 type Props = {
-  data: Product[];
+  data: Layout[];
 };
 
 const Home = ({ data }: Props) => {
@@ -26,13 +26,16 @@ const Home = ({ data }: Props) => {
   return (
     <FocusContext.Provider value={focusKey}>
       <div className={s.root} ref={ref}>
-        <h2>Title</h2>
-
-        <div className={s.products}>
-          {data.map((product) => (
-            <ProductCard key={product.productId} />
-          ))}
-        </div>
+        {data?.map((category) => (
+          <div key={category.title} className={s.category}>
+            <h2>{category.title}</h2>
+            <div className={s.products}>
+              {category.products.map((product) => (
+                <ProductCard key={product.productId} />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </FocusContext.Provider>
   );

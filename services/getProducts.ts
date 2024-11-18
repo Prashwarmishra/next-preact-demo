@@ -1,7 +1,7 @@
 import { BASE_URL } from '../constants';
 import Product from '../types/Product';
 
-const formatData = (data: any[]) => {
+export const serializeProduct = (data: any[]) => {
   const out: Product[] = data.map((item) => ({
     productId: item.id,
     title: item.title,
@@ -20,5 +20,5 @@ export const getProducts = async () => {
   const res = await fetch(url);
   const data = await res.json();
 
-  return formatData(data?.products);
+  return serializeProduct(data?.products);
 };
