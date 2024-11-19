@@ -7,6 +7,8 @@ import { createPortal } from 'react-dom';
 import s from './Popup.module.scss';
 import { isClient } from '../../../utils';
 import useNavigation from '../../../hooks/useNavigation';
+import { useEffect } from 'react';
+import { BACK_PRESS_DISABLED } from '../../../constants/sessionStorage';
 
 type Props = {
   children: React.ReactNode;
@@ -15,9 +17,13 @@ type Props = {
 };
 
 const Popup = ({ children, focusKey, onClose }: Props) => {
-  useNavigation(true, onClose);
+  useNavigation({ isPopup: true, onBackPress: onClose });
 
   const { ref } = useFocusable({ focusKey });
+
+  useEffect(() => {
+    sessionStorage.setItem(BACK_PRESS_DISABLED, 'true');
+  }, []);
 
   if (!isClient) return null;
 

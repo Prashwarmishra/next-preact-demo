@@ -3,16 +3,39 @@ import { setFocus } from '@noriginmedia/norigin-spatial-navigation';
 import FocusableInput from '../../ui/atoms/FocusableInput';
 import FocusableButton from '../../ui/atoms/FocusableButton';
 import s from './Login.module.scss';
+import useNavigation from '../../hooks/useNavigation';
+import { AUTH } from '../../constants/localStorage';
+import { REDIRECTION_PATH_AFTER_LOGIN } from '../../constants/sessionStorage';
+import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 const USERNAME_FOCUSKEY = 'usernameInput';
 const PASSWORD_FOCUSKEY = 'passwordInput';
 
 const LoginPage = () => {
+  useNavigation({});
+
+  const router = useRouter();
+
+  // state
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    alert(`Logging in with Username: ${username} and Password: ${password}`);
+    if (username && password) {
+      const authData = JSON.stringify({
+        username,
+        password,
+      });
+      localStorage.setItem(AUTH, authData);
+
+      const redirectPath = sessionStorage.getItem(REDIRECTION_PATH_AFTER_LOGIN);
+      if (redirectPath) {
+        sessionStorage.removeItem(REDIRECTION_PATH_AFTER_LOGIN);
+        toast.success('Login successful');
+        router.replace(redirectPath);
+      }
+    }
   };
 
   useEffect(() => {
@@ -33,7 +56,9 @@ const LoginPage = () => {
       />
       <FocusableInput
         value={password}
-        onChange={(e: any) => setPassword(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value)
+        }
         placeholder='Password'
         focusKey={PASSWORD_FOCUSKEY}
       />
@@ -42,6 +67,8 @@ const LoginPage = () => {
         label='Login'
         focusKey='loginButton'
       />
+
+      <Toaster />
     </div>
   );
 };

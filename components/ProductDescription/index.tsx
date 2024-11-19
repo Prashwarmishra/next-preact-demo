@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import FocusableButton from '../../ui/atoms/FocusableButton';
 import { formatCurrency } from '../../utils';
 import FocusableDiv from '../../ui/atoms/FocusableDiv';
+import { isUserLoggedIn } from '../../utils/login';
+import LoginNudge from '../LoginNudge';
 
 type Props = {
   data: ProductDescriptionType;
@@ -18,8 +20,7 @@ type Props = {
 const CTA_FOCUS_KEY = 'addToCartFocusKey';
 
 const ProductDescription = ({ data }: Props) => {
-  const { ref, focusKey, focused } = useFocusable();
-  useNavigation();
+  const { ref, focusKey } = useFocusable();
 
   const {
     productImages,
@@ -34,7 +35,21 @@ const ProductDescription = ({ data }: Props) => {
     reviews,
   } = data;
 
+  // states
   const [selectedImage, setSelectedImage] = useState(productImages[0]);
+  const [showLoginNudge, setShowLoginNudge] = useState(false);
+
+  useNavigation({});
+
+  const handleCloseLoginNudge = () => {
+    setShowLoginNudge(false);
+  };
+
+  const handleAddToCart = () => {
+    if (!isUserLoggedIn()) {
+      setShowLoginNudge(true);
+    }
+  };
 
   useEffect(() => {
     setFocus(CTA_FOCUS_KEY);
@@ -74,7 +89,7 @@ const ProductDescription = ({ data }: Props) => {
               <FocusableButton
                 focusKey={CTA_FOCUS_KEY}
                 label='Add to Cart'
-                onClick={() => console.log('item added')}
+                onClick={handleAddToCart}
               />
               {/* <button onClick={() => alert('Added to cart!')} disabled={!stock}>
               {stock ? 'Add to Cart' : 'Out of Stock'}
@@ -116,6 +131,14 @@ const ProductDescription = ({ data }: Props) => {
             </div>
           </div>
         </div>
+
+        {showLoginNudge && (
+          <LoginNudge
+            onClose={handleCloseLoginNudge}
+            title='Login to continue'
+            description='You must be logged in to add this item to cart'
+          />
+        )}
       </div>
     </FocusContext.Provider>
   );

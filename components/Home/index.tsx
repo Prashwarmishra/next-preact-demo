@@ -17,23 +17,23 @@ type Props = {
 };
 
 const Home = ({ data }: Props) => {
-  const { ref, focusKey, focusSelf } = useFocusable();
-  const [showPopup, setShowPopup] = useState(false);
+  const { ref, focusKey } = useFocusable();
+  const [showLoginNudge, setShowLoginNudge] = useState(false);
 
   const handleRowFocus = (layout: FocusableComponentLayout) => {
     ref.current.scrollTop = layout.y - 200;
     ref.current.style.scrollBehavior = 'smooth';
   };
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
+  const handleCloseLoginNudge = () => {
+    setShowLoginNudge(false);
   };
 
   const runLoginNudgeFlow = () => {
     const wasLoginNudgeShown = sessionStorage.getItem(WAS_LOGIN_NUDGE_SHOWN);
     if (wasLoginNudgeShown !== 'true') {
       sessionStorage.setItem(WAS_LOGIN_NUDGE_SHOWN, 'true');
-      setTimeout(() => setShowPopup(true), 500);
+      setTimeout(() => setShowLoginNudge(true), 500);
     }
   };
 
@@ -52,7 +52,7 @@ const Home = ({ data }: Props) => {
           <Row data={rowData} onFocusCallback={handleRowFocus} />
         ))}
 
-        {showPopup && <LoginNudge onClose={handleClosePopup} />}
+        {showLoginNudge && <LoginNudge onClose={handleCloseLoginNudge} />}
       </div>
     </FocusContext.Provider>
   );
