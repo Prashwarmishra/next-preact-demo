@@ -8,10 +8,15 @@ const serializeProductDescription = (data: any) => {
   const out: ProductDescription = {
     ...productDetails,
     category: data.category,
-    brand: data.brand,
+    brand: data.brand ?? '',
     stock: data.stock,
     shippingInformation: data.shippingInformation,
     sku: data.sku,
+    productImages: [
+      'https://rukminim2.flixcart.com/image/832/832/xif0q/television/b/g/n/-original-imagtwterapbxxdj.jpeg?q=70&crop=false',
+      'https://rukminim2.flixcart.com/image/832/832/xif0q/television/h/8/6/-original-imagtjhhmrjb6d4m.jpeg?q=70&crop=false',
+    ],
+    reviews: data.reviews,
   };
   return out;
 };

@@ -7,31 +7,40 @@ import { useEffect } from 'react';
 
 import s from './LoginNudge.module.scss';
 import { useRouter } from 'next/router';
+import FocusableButton from '../../ui/atoms/FocusableButton';
 
 type Props = {
   onClose: () => void;
 };
 
+const LOGIN_REDIRECTION_FOCUS_KEY = 'loginRedirectionFocusKey';
+
 const LoginNudge = ({ onClose }: Props) => {
   const router = useRouter();
 
-  const { ref, focusKey, focused } = useFocusable({
-    onEnterPress: () => router.push('/login'),
-  });
+  const { ref, focusKey } = useFocusable();
+
+  const handleLoginRedirection = () => router.push('/login');
 
   useEffect(() => {
-    setFocus(focusKey);
+    setFocus(LOGIN_REDIRECTION_FOCUS_KEY);
   }, []);
 
   return (
     <div ref={ref}>
       <Popup onClose={onClose} focusKey={focusKey}>
         <div className={s.root}>
-          <h3>Login to personalize content</h3>
+          <h2 className={s.title}>Login to view your cart</h2>
 
-          <button style={{ background: focused ? 'red' : 'blue' }}>
-            Login
-          </button>
+          <p className={s.description}>
+            Login to view your cart, order history and more details
+          </p>
+
+          <FocusableButton
+            label='Login'
+            onClick={handleLoginRedirection}
+            focusKey={LOGIN_REDIRECTION_FOCUS_KEY}
+          />
         </div>
       </Popup>
     </div>
