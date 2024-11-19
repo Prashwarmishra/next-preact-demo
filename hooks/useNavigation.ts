@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { noop } from '../utils';
+import { isClient, noop } from '../utils';
 
 const useNavigation = (isPopup = false, onBackPress = noop) => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const useNavigation = (isPopup = false, onBackPress = noop) => {
   };
 
   useEffect(() => {
-    if (window) {
+    if (isClient) {
       window.addEventListener('keydown', handleKeyDown);
     }
 
