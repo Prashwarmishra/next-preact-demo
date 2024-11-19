@@ -1,5 +1,9 @@
+import LoginComponent from '../components/Login';
+import useNavigation from '../hooks/useNavigation';
+
 const Login = () => {
-  return <div>Login</div>;
+  useNavigation();
+  return <LoginComponent />;
 };
 
 export default Login;

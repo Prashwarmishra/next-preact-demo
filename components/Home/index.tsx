@@ -30,11 +30,12 @@ const Home = ({ data }: Props) => {
   };
 
   const runLoginNudgeFlow = () => {
-    const wasLoginNudgeShown = sessionStorage.getItem(WAS_LOGIN_NUDGE_SHOWN);
-    if (wasLoginNudgeShown !== 'true') {
-      sessionStorage.setItem(WAS_LOGIN_NUDGE_SHOWN, 'true');
-      setTimeout(() => setShowPopup(true), 500);
-    }
+    setTimeout(() => setShowPopup(true), 500);
+    // const wasLoginNudgeShown = sessionStorage.getItem(WAS_LOGIN_NUDGE_SHOWN);
+    // if (wasLoginNudgeShown !== 'true') {
+    //   sessionStorage.setItem(WAS_LOGIN_NUDGE_SHOWN, 'true');
+    //   setTimeout(() => setShowPopup(true), 500);
+    // }
   };
 
   useEffect(() => {
