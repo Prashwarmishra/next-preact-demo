@@ -17,6 +17,7 @@ const PHONE_NUMBER = 'Phone number';
 const ADDRESS = 'Address';
 const LOCALITY = 'Locality';
 const SAVE_ADDRESS_CTA = 'saveAddress';
+const GO_BACK_CTA = 'goBack';
 const EDIT_ADDRESS_CTA = 'editAddress';
 
 const inputStyle = { width: '20rem' };
@@ -158,12 +159,19 @@ const AddressCard = () => {
                   />
                 </div>
 
-                <FocusableButton
-                  label='Save and continue'
-                  focusKey={SAVE_ADDRESS_CTA}
-                  onClick={saveAddress}
-                  // disabled={!name || !phone || !address || !locality}
-                />
+                <div className={s.section}>
+                  <FocusableButton
+                    label='Save and continue'
+                    focusKey={SAVE_ADDRESS_CTA}
+                    onClick={saveAddress}
+                    disabled={!name || !phone || !address || !locality}
+                  />
+                  <FocusableButton
+                    label='Go Back'
+                    focusKey={GO_BACK_CTA}
+                    onClick={() => setActiveStep(0)}
+                  />
+                </div>
               </div>
             )}
 

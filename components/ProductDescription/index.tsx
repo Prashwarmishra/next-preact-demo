@@ -12,7 +12,7 @@ import { formatCurrency } from '../../utils';
 import FocusableDiv from '../../ui/atoms/FocusableDiv';
 import { isUserLoggedIn } from '../../utils/login';
 import LoginNudge from '../LoginNudge';
-import { addItemToCart, checkIfItemInCart } from '../../utils/ cart';
+import { addItemToCart, checkIfItemInCart, getCart } from '../../utils/ cart';
 import toast, { Toaster } from 'react-hot-toast';
 import { ADD_TO_CART, GO_TO_CART, OUT_OF_STOCK } from '../../constants/cart';
 import REDIRECTION_ROUTES from '../../constants/routes';
@@ -62,8 +62,7 @@ const ProductDescription = ({ data }: Props) => {
   const handleCartCtaClick = () => {
     if (isItemInCart) {
       navigateTo(REDIRECTION_ROUTES.cart);
-    }
-    if (!isUserLoggedIn()) {
+    } else if (!isUserLoggedIn()) {
       setShowLoginNudge(true);
     } else {
       addItemToCart(data);

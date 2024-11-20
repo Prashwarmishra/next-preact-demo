@@ -8,20 +8,27 @@
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-gap: 1rem;
+    padding: 0 50px;
     .left {
     }
 
     .right {
-      margin-top: 1rem;
-      margin-right: 1rem;
-      .table {
-        display: flex;
-        justify-content: space-between;
-        .desc {
-          color: grey;
-        }
-        .value {
-          color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 2rem;
+      .priceCard {
+        .table {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid #ddd;
+          .desc {
+            color: grey;
+          }
+          .value {
+            color: #333;
+          }
         }
       }
     }

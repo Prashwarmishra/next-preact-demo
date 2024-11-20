@@ -9,6 +9,7 @@ const setCartToLocalStorage = (cart: Cart) => {
 
 export const getCart: () => Cart = () => {
   const data = localStorage.getItem(CART);
+
   if (data) {
     return JSON.parse(data);
   }
