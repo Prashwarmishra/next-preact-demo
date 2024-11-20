@@ -9,6 +9,7 @@ import s from './LoginNudge.module.scss';
 import { useRouter } from 'next/router';
 import FocusableButton from '../../ui/atoms/FocusableButton';
 import { REDIRECTION_PATH_AFTER_LOGIN } from '../../constants/sessionStorage';
+import REDIRECTION_ROUTES from '../../constants/routes';
 
 type Props = {
   onClose: () => void;
@@ -28,7 +29,7 @@ const LoginNudge = ({
   const { ref, focusKey } = useFocusable();
 
   const handleLoginRedirection = () => {
-    router.push('/login');
+    router.push(REDIRECTION_ROUTES.login);
     sessionStorage.setItem(REDIRECTION_PATH_AFTER_LOGIN, location.pathname);
   };
 

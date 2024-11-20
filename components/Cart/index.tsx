@@ -9,26 +9,46 @@ import { getUsername } from '../../utils/login';
 import AddressCard from '../AddressCard';
 import s from './Cart.module.scss';
 import { useEffect, useState } from 'react';
-import { formatCurrency, noop } from '../../utils';
+import { formatCurrency, isClient, noop } from '../../utils';
 import CartCard from '../CartCard';
 import FocusableButton from '../../ui/atoms/FocusableButton';
-import { getCart, removeItemFromCart } from '../../utils/ cart';
+import { deleteCart, getCart, removeItemFromCart } from '../../utils/ cart';
 import { ProductDescription } from '../../types/Product';
 import Address from '../../types/Address';
 import CartType from '../../types/Cart';
 import toast, { Toaster } from 'react-hot-toast';
+import ConfirmationNudge from '../ConfirmationNudge';
+import REDIRECTION_ROUTES from '../../constants/routes';
+import { useRouter } from 'next/router';
 
 const username = getUsername();
 
 const Cart = () => {
   const [data, setData] = useState<CartType>();
   const [deliveryAddress, setDeliveryAddress] = useState<Address>();
+  const [showConfirmationNudge, setShowConfirmationNudge] = useState(false);
 
   const { ref, focusKey, focusSelf } = useFocusable({});
   useNavigation({});
+  const router = useRouter();
 
   const handleSelectedAddress = (selectedAddress: Address) => {
     setDeliveryAddress(selectedAddress);
+  };
+
+  const resetData = () => {
+    setDeliveryAddress(undefined);
+    deleteCart();
+    setData(undefined);
+  };
+
+  const handleHomeRedirection = () => {
+    router.replace(REDIRECTION_ROUTES.home);
+  };
+
+  const handleCheckout = () => {
+    setShowConfirmationNudge(true);
+    resetData();
   };
 
   const renderPriceCard = () => {
@@ -89,12 +109,16 @@ const Cart = () => {
             <FocusableButton
               focusKey=''
               label='Checkout'
-              onClick={noop}
+              onClick={handleCheckout}
               disabled={!deliveryAddress}
             />
           </div>
         </div>
-        <Toaster />
+        {isClient && <Toaster />}
+
+        {showConfirmationNudge && (
+          <ConfirmationNudge onClose={handleHomeRedirection} />
+        )}
       </div>
     </FocusContext.Provider>
   );
