@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@noriginmedia/norigin-spatial-navigation": "^2.2.1",
-    "@types/react-dom": "^18.3.1",
     "classnames": "^2.5.1",
     "next": "12.3.4",
     "next-plugin-preact": "3.0.7",
@@ -24,8 +23,9 @@
   "devDependencies": {
     "@types/node": "18.7.15",
     "@types/react": "16.9.17",
-    "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.3.3",
+    "@types/react-dom": "16.9.17",
+    "eslint-config-prettier": "9.1.0",
+    "prettier": "3.3.3",
     "typescript": "4.8.2"
   }
 }

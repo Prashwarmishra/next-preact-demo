@@ -7,7 +7,6 @@ import useNavigation from '../../hooks/useNavigation';
 import { AUTH } from '../../constants/localStorage';
 import { REDIRECTION_PATH_AFTER_LOGIN } from '../../constants/sessionStorage';
 import { useRouter } from 'next/router';
-import toast, { Toaster } from 'react-hot-toast';
 
 const USERNAME_FOCUSKEY = 'usernameInput';
 const PASSWORD_FOCUSKEY = 'passwordInput';
@@ -32,7 +31,6 @@ const LoginPage = () => {
       const redirectPath = sessionStorage.getItem(REDIRECTION_PATH_AFTER_LOGIN);
       if (redirectPath) {
         sessionStorage.removeItem(REDIRECTION_PATH_AFTER_LOGIN);
-        toast.success('Login successful');
         router.replace(redirectPath);
       }
     }
@@ -67,8 +65,6 @@ const LoginPage = () => {
         label='Login'
         focusKey='loginButton'
       />
-
-      <Toaster />
     </div>
   );
 };

@@ -10,3 +10,14 @@ export const isUserLoggedIn = () => {
   }
   return false;
 };
+
+export const getUsername = () => {
+  const data = localStorage.getItem(AUTH);
+  if (data) {
+    const loginData = JSON.parse(data);
+    if (loginData.username) {
+      return loginData.username;
+    }
+  }
+  return '';
+};

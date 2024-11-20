@@ -2,6 +2,7 @@ import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 
 import s from './FocusableButton.module.scss';
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import classNames from 'classnames';
 
 interface Props
   extends DetailedHTMLProps<
@@ -14,19 +15,25 @@ interface Props
 }
 
 const FocusableButton = ({ onClick, label, focusKey, disabled }: Props) => {
+  const handleEnterPress = () => {
+    if (!disabled) {
+      onClick();
+    }
+  };
+
   const { ref, focused } = useFocusable({
     focusKey,
-    onEnterPress: onClick,
+    onEnterPress: handleEnterPress,
   });
 
   return (
     <button
       ref={ref}
       onClick={onClick}
-      style={{
-        backgroundColor: focused ? 'cyan' : '#61dafb',
-      }}
-      className={s.root}
+      className={classNames(s.root, {
+        [s.focused]: focused,
+        [s.disabled]: disabled,
+      })}
       disabled={disabled}
     >
       {label}

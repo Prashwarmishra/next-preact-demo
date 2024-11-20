@@ -2,6 +2,7 @@ import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { ChangeEvent, useState } from 'react';
 
 import s from './FocusableInput.module.scss';
+import classNames from 'classnames';
 
 type Props = {
   value: string;
@@ -40,18 +41,17 @@ const FocusableInput = ({ value, onChange, placeholder, focusKey }: Props) => {
   });
 
   return (
-    <input
-      ref={ref}
-      type='text'
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={s.root}
-      style={{
-        border: focused ? '2px solid cyan' : '1px solid #fff',
-      }}
-      autoFocus={true}
-    />
+    <div className={s.root}>
+      <input
+        ref={ref}
+        type='text'
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={classNames(s.input, { [s.focused]: focused })}
+        autoFocus={true}
+      />
+    </div>
   );
 };
 

@@ -11,6 +11,7 @@ import Layout from '../../types/Layout';
 import Row from '../Row';
 import LoginNudge from '../LoginNudge';
 import { WAS_LOGIN_NUDGE_SHOWN } from '../../constants/sessionStorage';
+import { isUserLoggedIn } from '../../utils/login';
 
 type Props = {
   data: Layout[];
@@ -31,7 +32,7 @@ const Home = ({ data }: Props) => {
 
   const runLoginNudgeFlow = () => {
     const wasLoginNudgeShown = sessionStorage.getItem(WAS_LOGIN_NUDGE_SHOWN);
-    if (wasLoginNudgeShown !== 'true') {
+    if (!isUserLoggedIn() && wasLoginNudgeShown !== 'true') {
       sessionStorage.setItem(WAS_LOGIN_NUDGE_SHOWN, 'true');
       setTimeout(() => setShowLoginNudge(true), 500);
     }

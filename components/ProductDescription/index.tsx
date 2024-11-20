@@ -16,6 +16,7 @@ import { addItemToCart, checkIfItemInCart } from '../../utils/ cart';
 import toast, { Toaster } from 'react-hot-toast';
 import { ADD_TO_CART, GO_TO_CART, OUT_OF_STOCK } from '../../constants/cart';
 import REDIRECTION_ROUTES from '../../constants/routes';
+import Card from '../../ui/atoms/Card';
 
 type Props = {
   data: ProductDescriptionType;
@@ -83,7 +84,9 @@ const ProductDescription = ({ data }: Props) => {
     <FocusContext.Provider value={focusKey}>
       <div className={styles.container} ref={ref}>
         {/* Header */}
-        <div className={styles.header}>{title}</div>
+        <Card>
+          <div className={styles.header}>{title}</div>
+        </Card>
 
         {/* Main Content */}
         <div className={styles.mainContent}>

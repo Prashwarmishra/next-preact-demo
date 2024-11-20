@@ -3,7 +3,6 @@ $background-color: #f5f5f5;
 $text-color: #333;
 $border-color: #ddd;
 $highlight-color: #ff5722;
-$padding: 1rem;
 
 .container {
   display: flex;
@@ -13,18 +12,14 @@ $padding: 1rem;
 }
 
 .header {
-  background-color: white;
-  padding: $padding;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .mainContent {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  padding: $padding;
+  padding: 1rem;
   height: 85vh;
 
   @media (max-width: 768px) {
