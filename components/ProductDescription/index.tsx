@@ -12,6 +12,10 @@ import { formatCurrency } from '../../utils';
 import FocusableDiv from '../../ui/atoms/FocusableDiv';
 import { isUserLoggedIn } from '../../utils/login';
 import LoginNudge from '../LoginNudge';
+import { addItemToCart, checkIfItemInCart } from '../../utils/ cart';
+import toast, { Toaster } from 'react-hot-toast';
+import { ADD_TO_CART, GO_TO_CART, OUT_OF_STOCK } from '../../constants/cart';
+import REDIRECTION_ROUTES from '../../constants/routes';
 
 type Props = {
   data: ProductDescriptionType;
@@ -23,6 +27,7 @@ const ProductDescription = ({ data }: Props) => {
   const { ref, focusKey } = useFocusable();
 
   const {
+    productId,
     productImages,
     title,
     description,
@@ -38,18 +43,37 @@ const ProductDescription = ({ data }: Props) => {
   // states
   const [selectedImage, setSelectedImage] = useState(productImages[0]);
   const [showLoginNudge, setShowLoginNudge] = useState(false);
+  const [isItemInCart, setIsItemInCart] = useState(false);
 
-  useNavigation({});
+  const { navigateTo } = useNavigation({});
+
+  const getCartLabel = () => {
+    let label = ADD_TO_CART;
+    if (isItemInCart) label = GO_TO_CART;
+    else if (stock === 0) label = OUT_OF_STOCK;
+    return label;
+  };
 
   const handleCloseLoginNudge = () => {
     setShowLoginNudge(false);
   };
 
-  const handleAddToCart = () => {
+  const handleCartCtaClick = () => {
+    if (isItemInCart) {
+      navigateTo(REDIRECTION_ROUTES.cart);
+    }
     if (!isUserLoggedIn()) {
       setShowLoginNudge(true);
+    } else {
+      addItemToCart(data);
+      setIsItemInCart(true);
+      toast.success(`${title} added to cart`);
     }
   };
+
+  useEffect(() => {
+    setIsItemInCart(checkIfItemInCart(productId));
+  }, []);
 
   useEffect(() => {
     setFocus(CTA_FOCUS_KEY);
@@ -88,12 +112,10 @@ const ProductDescription = ({ data }: Props) => {
             <div className={styles.buySection}>
               <FocusableButton
                 focusKey={CTA_FOCUS_KEY}
-                label='Add to Cart'
-                onClick={handleAddToCart}
+                label={getCartLabel()}
+                onClick={handleCartCtaClick}
+                disabled={!stock}
               />
-              {/* <button onClick={() => alert('Added to cart!')} disabled={!stock}>
-              {stock ? 'Add to Cart' : 'Out of Stock'}
-            </button> */}
             </div>
           </div>
 
@@ -110,7 +132,7 @@ const ProductDescription = ({ data }: Props) => {
               <div className={styles.feature}>Category: {category}</div>
               <div className={styles.feature}>Rating: ⭐ {rating}</div>
               <div className={styles.feature}>
-                Stock: {stock ? `${stock} available` : 'Out of stock'}
+                Stock: {stock > 0 ? `${stock} available` : 'Out of stock'}
               </div>
             </ul>
 
@@ -139,6 +161,8 @@ const ProductDescription = ({ data }: Props) => {
             description='You must be logged in to add this item to cart'
           />
         )}
+
+        <Toaster />
       </div>
     </FocusContext.Provider>
   );

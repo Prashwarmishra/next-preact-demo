@@ -16,7 +16,6 @@ type Props = {
 
 const ProductCard = ({ data, onFocusCallback }: Props) => {
   const handleProductCardClick = () => {
-    console.log('productCardClick');
     router.push(`/product/${data.productId}`);
   };
 
@@ -41,14 +40,10 @@ const ProductCard = ({ data, onFocusCallback }: Props) => {
           <h2 className={s.title}>{title}</h2>
           <div className={s.priceSection}>
             <div className={s.discountedPrice}>{formatCurrency(price)}</div>
-            {discount && (
-              <div className={s.originalPrice}>
-                {formatCurrency(discount)} off
-              </div>
-            )}
+            {discount && <div className={s.originalPrice}>{discount}% off</div>}
           </div>
           <div className={s.rating}>
-            Rating: <strong>{rating}</strong> / 5
+            Rating: ⭐ <strong>{rating}</strong>
           </div>
         </div>
       </div>

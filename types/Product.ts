@@ -2,7 +2,7 @@ type Product = {
   productId: number;
   title: string;
   description: string;
-  price: string;
+  price: number;
   discount: string;
   rating: string;
 };
@@ -18,7 +18,7 @@ type Review = {
 export interface ProductDescription extends Product {
   category: string;
   productImages: string[];
-  stock: string;
+  stock: number;
   brand: string;
   sku: string;
   shippingInformation: string;
