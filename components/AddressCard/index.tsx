@@ -19,6 +19,8 @@ const LOCALITY = 'Locality';
 const SAVE_ADDRESS_CTA = 'saveAddress';
 const EDIT_ADDRESS_CTA = 'editAddress';
 
+const inputStyle = { width: '20rem' };
+
 const AddressCard = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [savedAddresses, setSavedAddresses] = useState(SAVED_ADDRESS);
@@ -105,71 +107,81 @@ const AddressCard = () => {
   return (
     <FocusContext.Provider value={focusKey}>
       <div className={s.root} ref={ref}>
-        <>
-          {activeStep === 0 && renderSavedAddressess()}
+        <Card>
+          <>
+            {activeStep === 0 && renderSavedAddressess()}
 
-          {activeStep === 1 && (
-            <div className={s.form}>
-              <h2 className={s.title}>Add address</h2>
+            {activeStep === 1 && (
+              <div className={s.form}>
+                <h2 className={s.title}>Add address</h2>
 
-              <FocusableInput
-                value={name}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setName(e.target.value)
-                }
-                placeholder={NAME}
-                focusKey={NAME}
-              />
-              <FocusableInput
-                value={phone}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setPhone(e.target.value)
-                }
-                placeholder={PHONE_NUMBER}
-                focusKey={PHONE_NUMBER}
-              />
+                <div className={s.section}>
+                  <FocusableInput
+                    value={name}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setName(e.target.value)
+                    }
+                    placeholder={NAME}
+                    focusKey={NAME}
+                    customStyle={inputStyle}
+                  />
+                  <FocusableInput
+                    value={phone}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setPhone(e.target.value)
+                    }
+                    placeholder={PHONE_NUMBER}
+                    focusKey={PHONE_NUMBER}
+                    customStyle={inputStyle}
+                  />
+                </div>
 
-              <FocusableInput
-                value={address}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setAddress(e.target.value)
-                }
-                placeholder={ADDRESS}
-                focusKey={ADDRESS}
-              />
+                <div className={s.section}>
+                  <FocusableInput
+                    value={address}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setAddress(e.target.value)
+                    }
+                    placeholder={ADDRESS}
+                    focusKey={ADDRESS}
+                    customStyle={inputStyle}
+                  />
 
-              <FocusableInput
-                value={locality}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setLocality(e.target.value)
-                }
-                placeholder={LOCALITY}
-                focusKey={LOCALITY}
-              />
+                  <FocusableInput
+                    value={locality}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setLocality(e.target.value)
+                    }
+                    placeholder={LOCALITY}
+                    focusKey={LOCALITY}
+                    customStyle={inputStyle}
+                  />
+                </div>
 
-              <FocusableButton
-                label='Save and continue'
-                focusKey={SAVE_ADDRESS_CTA}
-                onClick={saveAddress}
-                // disabled={!name || !phone || !address || !locality}
-              />
-            </div>
-          )}
-
-          {activeStep === 2 && (
-            <div className={s.deliveryAddress}>
-              <div className={s.info}>
-                <h2 className={s.title}>Delivering to:</h2>
-                <div className={s.section}>{getFormattedAddress()}</div>
+                <FocusableButton
+                  label='Save and continue'
+                  focusKey={SAVE_ADDRESS_CTA}
+                  onClick={saveAddress}
+                  // disabled={!name || !phone || !address || !locality}
+                />
               </div>
-              <FocusableButton
-                focusKey={EDIT_ADDRESS_CTA}
-                onClick={() => setActiveStep(0)}
-                label='Edit'
-              />
-            </div>
-          )}
-        </>
+            )}
+
+            {activeStep === 2 && (
+              <div className={s.deliveryAddress}>
+                <div className={s.info}>
+                  <h2 className={s.title}>Delivering to:</h2>
+                  <div className={s.section}>{getFormattedAddress()}</div>
+                </div>
+                <FocusableButton
+                  focusKey={EDIT_ADDRESS_CTA}
+                  onClick={() => setActiveStep(0)}
+                  label='Edit'
+                />
+              </div>
+            )}
+          </>
+        </Card>
       </div>
     </FocusContext.Provider>
   );

@@ -4,4 +4,26 @@
     color: #333;
     text-transform: capitalize;
   }
+  .container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 1rem;
+    .left {
+    }
+
+    .right {
+      margin-top: 1rem;
+      margin-right: 1rem;
+      .table {
+        display: flex;
+        justify-content: space-between;
+        .desc {
+          color: grey;
+        }
+        .value {
+          color: #333;
+        }
+      }
+    }
+  }
 }

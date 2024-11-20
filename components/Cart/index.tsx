@@ -9,8 +9,7 @@ import { getUsername } from '../../utils/login';
 import AddressCard from '../AddressCard';
 import s from './Cart.module.scss';
 import { useEffect } from 'react';
-import { SAVED_ADDRESS } from '../../constants/addresses';
-import FocusableDiv from '../../ui/atoms/FocusableDiv';
+import { formatCurrency } from '../../utils';
 
 const username = getUsername();
 
@@ -28,13 +27,39 @@ const Cart = () => {
         <Card>
           <div className={s.username}>{username}'s Cart</div>
         </Card>
-
-        <AddressCard />
-        {/* <div style={{ marginTop: 100 }}>
+        <div className={s.container}>
+          <div className={s.left}>
+            <AddressCard />
+            {/* <div style={{ marginTop: 100 }}>
           {SAVED_ADDRESS.map((address) => (
             <FocusableDiv>{address.name}</FocusableDiv>
           ))}
         </div> */}
+          </div>
+
+          <div className={s.right}>
+            <Card>
+              <div className={s.table}>
+                <div className={s.desc}>Price (1 item)</div>
+                <div className={s.value}>{formatCurrency(100)}</div>
+              </div>
+            </Card>
+
+            <Card>
+              <div className={s.table}>
+                <div className={s.desc}>Delivery fee</div>
+                <div className={s.value}>FREE</div>
+              </div>
+            </Card>
+
+            <Card>
+              <div className={s.table}>
+                <div className={s.desc}>Total</div>
+                <div className={s.value}>{formatCurrency(100)}</div>
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     </FocusContext.Provider>
   );

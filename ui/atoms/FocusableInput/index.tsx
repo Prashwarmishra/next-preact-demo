@@ -9,9 +9,16 @@ type Props = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   focusKey: string;
+  customStyle?: any;
 };
 
-const FocusableInput = ({ value, onChange, placeholder, focusKey }: Props) => {
+const FocusableInput = ({
+  value,
+  onChange,
+  placeholder,
+  focusKey,
+  customStyle = {},
+}: Props) => {
   const [isInputFocussed, setInputFocussed] = useState(false);
 
   const handleEnterClick = () => {
@@ -50,6 +57,7 @@ const FocusableInput = ({ value, onChange, placeholder, focusKey }: Props) => {
         placeholder={placeholder}
         className={classNames(s.input, { [s.focused]: focused })}
         autoFocus={true}
+        style={customStyle}
       />
     </div>
   );

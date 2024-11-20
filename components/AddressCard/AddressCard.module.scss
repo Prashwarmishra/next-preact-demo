@@ -22,6 +22,11 @@
     color: #333;
   }
 
+  .section {
+    display: flex;
+    gap: 1rem;
+  }
+
   .deliveryAddress {
     display: flex;
     width: 100%;
