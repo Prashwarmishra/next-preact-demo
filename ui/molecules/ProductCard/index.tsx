@@ -26,7 +26,7 @@ const ProductCard = ({ data, onFocusCallback }: Props) => {
 
   const router = useRouter();
 
-  const { title, discount, price, rating } = data;
+  const { image, title, discount, price, rating } = data;
 
   return (
     <FocusContext.Provider value={focusKey}>
@@ -35,7 +35,9 @@ const ProductCard = ({ data, onFocusCallback }: Props) => {
         ref={ref}
         onClick={handleProductCardClick}
       >
-        <div className={s.productImage} />
+        <div className={s.productImage}>
+          <img src={image} alt='product-img' />
+        </div>
         <div className={s.productDetails}>
           <h2 className={s.title}>{title}</h2>
           <div className={s.priceSection}>

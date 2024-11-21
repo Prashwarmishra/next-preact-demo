@@ -59,6 +59,7 @@ const LoginPage = () => {
         }
         placeholder='Password'
         focusKey={PASSWORD_FOCUSKEY}
+        type='password'
       />
       <FocusableButton
         onClick={handleLogin}

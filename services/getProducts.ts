@@ -1,9 +1,14 @@
-import { BASE_URL } from '../constants';
+import { BASE_URL, DUMMY_IMAGES } from '../constants';
 import Product from '../types/Product';
 
-export const serializeProduct = (item: any) => {
+const getImage = (index: number) => {
+  return DUMMY_IMAGES[index % DUMMY_IMAGES.length];
+};
+
+export const serializeProduct = (item: any, index: number) => {
   const out: Product = {
     productId: item.id,
+    image: getImage(index),
     title: item.title,
     description: item.description,
     price: item.price,
@@ -14,7 +19,7 @@ export const serializeProduct = (item: any) => {
   return out;
 };
 export const serializeProducts = (data: any[]) =>
-  data.map((item) => serializeProduct(item));
+  data.map((item, index) => serializeProduct(item, index));
 
 export const getProducts = async () => {
   const url = `${BASE_URL}/products`;

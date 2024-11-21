@@ -1,16 +1,25 @@
 import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
-import { ChangeEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  useState,
+} from 'react';
 
 import s from './FocusableInput.module.scss';
 import classNames from 'classnames';
 
-type Props = {
+interface Props
+  extends DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   focusKey: string;
   customStyle?: any;
-};
+}
 
 const FocusableInput = ({
   value,
@@ -18,6 +27,7 @@ const FocusableInput = ({
   placeholder,
   focusKey,
   customStyle = {},
+  type,
 }: Props) => {
   const [isInputFocussed, setInputFocussed] = useState(false);
 
@@ -51,7 +61,7 @@ const FocusableInput = ({
     <div className={s.root}>
       <input
         ref={ref}
-        type='text'
+        type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
