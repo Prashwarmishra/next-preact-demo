@@ -1,8 +1,8 @@
-import { InferGetServerSidePropsType } from 'next';
+import { InferGetStaticPropsType } from 'next';
 import Home from '../components/Home';
 import getHomepageData from '../services/getHomepageData';
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const data = await getHomepageData();
 
   return {
@@ -10,9 +10,7 @@ export const getServerSideProps = async () => {
   };
 };
 
-const Index = ({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Index = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!data) return <div>Something went wrong, please try again!</div>;
   return <Home data={data} />;
 };
