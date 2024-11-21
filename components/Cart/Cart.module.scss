@@ -1,6 +1,7 @@
 .root {
   background-color: white;
   min-height: 100vh;
+
   .username {
     font-size: 1.5rem;
     color: #333;
@@ -34,6 +35,19 @@
           }
         }
       }
+    }
+  }
+
+  .emptyContainer {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      color: #333;
+      margin-bottom: 20px;
     }
   }
 }

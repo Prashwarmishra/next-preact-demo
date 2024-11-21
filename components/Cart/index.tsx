@@ -95,25 +95,38 @@ const Cart = () => {
         <Card>
           <div className={s.username}>{username}'s Cart</div>
         </Card>
-        <div className={s.container}>
-          <div className={s.left}>
-            <AddressCard onAddressSelect={handleSelectedAddress} />
+        {data?.products?.length ? (
+          <>
+            <div className={s.container}>
+              <div className={s.left}>
+                <AddressCard onAddressSelect={handleSelectedAddress} />
 
-            {data && (
-              <CartCard data={data} onRemoveItem={handleRemoveCartItem} />
-            )}
-          </div>
+                {data && (
+                  <CartCard data={data} onRemoveItem={handleRemoveCartItem} />
+                )}
+              </div>
 
-          <div className={s.right}>
-            {renderPriceCard()}
+              <div className={s.right}>
+                {renderPriceCard()}
+                <FocusableButton
+                  focusKey=''
+                  label='Checkout'
+                  onClick={handleCheckout}
+                  disabled={!deliveryAddress}
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className={s.emptyContainer}>
+            <h3 className={s.title}>Uh oh! Your cart is empty</h3>
             <FocusableButton
               focusKey=''
-              label='Checkout'
-              onClick={handleCheckout}
-              disabled={!deliveryAddress}
+              label='Add items'
+              onClick={handleHomeRedirection}
             />
           </div>
-        </div>
+        )}
         {isClient && <Toaster />}
 
         {showConfirmationNudge && (
